@@ -2,13 +2,14 @@
   "name": "playwright-poc",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test-dsu": "cd apps/dsu && npm run-script test",
+    "test-gilmours": "cd apps/gilmours && npm run-script test"
+  },
   "author": "",
   "license": "ISC",
   "description": "",
-  "workspaces": [
-    "apps/*"
-  ],
+  "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.10.0",
     "@playwright/test": "^1.47.1",
@@ -17,8 +18,9 @@
     "allure-playwright": "^3.0.0",
     "dotenv": "^16.4.5",
     "eslint": "^9.10.0",
-    "turbo": "^2.1.2",
+    "globals": "^15.9.0",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0"
-  }
+  },
+  "packageManager": "npm@10.8.2"
 }
