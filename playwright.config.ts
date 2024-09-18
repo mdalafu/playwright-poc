@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig } from '@playwright/test';
+import { devices, PlaywrightTestConfig } from '@playwright/test';
 import { envs } from './env.config'
 
 const defaultConfig: PlaywrightTestConfig = {
@@ -12,12 +12,21 @@ const defaultConfig: PlaywrightTestConfig = {
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 2 : 4,
   reporter: [
+    ['html', { open: 'never' }],
     ['line'],
     ['allure-playwright'],
   ],
   use: {
     trace: 'on-first-retry',
-  } 
+  },
+  projects: [
+      {
+        name: "chromium",
+        use: {
+          ...devices["Desktop Chrome"],
+        },
+      },
+  ]
 
 }
 
