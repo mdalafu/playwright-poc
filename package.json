@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test-dsu": "cd apps/dsu && npm run-script test",
-    "test-gilmours": "cd apps/gilmours && npm run-script test"
+    "test-gilmours": "cd apps/gilmours && npm run-script test",
+    "test-mobile": "cd apps/mobile && npm run-script test"
   },
   "author": "",
   "license": "ISC",

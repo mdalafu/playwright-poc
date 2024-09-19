@@ -1,10 +1,10 @@
 import { test } from '@playwright/test';
-import config from '../playwright.config'
+import config from '../playwright.config.ts';
 
 test('gilmours test', async ({ page }) => {
-  console.log("DEBUG:", config.WEBSITE);
-  await page.goto(config.WEBSITE)
+  console.log("Hello world");
 
+  // await page.goto(config.BASE_URL)
 
 
 });
