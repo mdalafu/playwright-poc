@@ -1,0 +1,94 @@
+image: mcr.microsoft.com/playwright:v1.47.2-noble
+dsuStep: &dsuStep
+  - step:
+      name: DSU
+      caches:
+        - node
+      script:
+        - if [ -e set_env.sh ]; then
+        -   cat set_env.sh
+        -   source set_env.sh
+        - fi
+        - PLAYWRIGHT_HTML_OUTPUT_DIR=apps/dsu/playwright-report npm run test-dsu --trace on
+      artifacts:
+        - test-results/**/*.zip
+        - test-results/**/*.png
+        - apps/dsu/playwright-report/index.html
+   
+mobileStep: &mobileStep 
+  - step:
+      name: Mobile
+      caches:
+        - node
+      script:
+        - if [ -e set_env.sh ]; then
+        -   cat set_env.sh
+        -   source set_env.sh
+        - fi
+        - PLAYWRIGHT_HTML_OUTPUT_DIR=apps/mobile/playwright-report npm run test-mobile --trace on
+      artifacts:
+        - test-results/**/*.zip
+        - test-results/**/*.png
+        - apps/mobile/playwright-report/*.html
+   
+gilmoursStep: &gilmoursStep 
+  - step:
+      name: Gilmours
+      caches:
+        - node
+      script:
+        - if [ -e set_env.sh ]; then
+        -   cat set_env.sh
+        -   source set_env.sh
+        - fi
+        - PLAYWRIGHT_HTML_OUTPUT_DIR=apps/gilmours/playwright-report npm run test-gilmours --trace on
+      artifacts:
+        - test-results/**/*.zip
+        - test-results/**/*.png
+        - apps/gilmours/playwright-report/*.html
+
+pipelines:
+  default:
+  - step:
+      name: Install dependencies
+      caches:
+        - npm
+        - node
+      script:
+        - npm ci
+  - parallel:
+    - <<: *dsuStep
+    - <<: *gilmoursStep
+    # - <<: *mobileStep
+  custom:
+    test-tag:
+      - step:
+          name: Run test tag in QA
+          caches:
+            - npm
+            - node
+          script:
+            - npm ci
+            - PLAYWRIGHT_HTML_OUTPUT_DIR=playwright-report npx playwright test --grep @test --trace on
+          artifacts:
+            - test-results/**/*.zip
+            - test-results/**/*.png
+            - playwright-report/*.html
+    preprod:
+      - step:
+          name: Install dependencies
+          caches:
+            - npm
+            - node
+          script:
+            - npm ci
+            - export ENV=PREPROD
+            - echo "export ENV=$ENV" >> set_env.sh
+          artifacts:
+            - set_env.sh
+      - parallel:
+        - <<: *dsuStep
+        - <<: *gilmoursStep
+definitions:
+  caches:
+    npm: $HOME/.npm

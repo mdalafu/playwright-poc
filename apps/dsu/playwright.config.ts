@@ -5,14 +5,13 @@ export default {
     ...config,
     testDir: './tests',
     projects: [
-      {
-        name: 'setup browser',
-        testMatch: /setup\.ts/,
-      },
-      {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup browser'],
-      },
+        {
+            name: 'chromium',
+            use: { 
+                ...devices['Desktop Chrome'], 
+                // viewport: { width: 1920, height: 1080 }
+                viewport: { width: 1792, height: 1120 } // my local
+            },
+        },
     ]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class RuntimeTestData {
     private static data: Record<string, any> = {};
 
@@ -28,7 +29,7 @@ export class RuntimeTestData {
      * @returns True if the key exists, false otherwise.
      */
     public static has(key: string): boolean {
-        return this.data.hasOwnProperty(key);
+        return Object.prototype.hasOwnProperty.call(this.data, key);
     }
 
     /**

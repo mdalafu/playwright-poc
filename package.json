@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test-dsu": "cd apps/dsu && npm run-script test",
-    "test-gilmours": "cd apps/gilmours && npm run-script test",
-    "test-mobile": "cd apps/mobile && npm run-script test"
+    "test-dsu": "npx playwright test apps/dsu/tests",
+    "test-gilmours": "npx playwright test apps/gilmours/tests",
+    "test-mobile": "npx playwright test apps/mobile/tests",
+    "test-tag": "npx playwright test --grep @test"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +14,11 @@
   "type": "module",
   "devDependencies": {
     "@eslint/js": "^9.10.0",
-    "@playwright/test": "^1.47.1",
+    "@playwright/test": "^1.47.2",
     "@types/eslint__js": "^8.42.3",
     "@types/node": "^22.5.5",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "allure-playwright": "^3.0.0",
     "dotenv": "^16.4.5",
     "eslint": "^9.10.0",
@@ -23,5 +26,8 @@
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.6.0"
   },
-  "packageManager": "npm@10.8.2"
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
